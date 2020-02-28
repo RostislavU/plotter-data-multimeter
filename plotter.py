@@ -10,6 +10,7 @@ import argparse
 
 MIN_VALUE = -0.002
 PATH = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_PATH = 'images'
 
 # TODO: Локализация и сохранение пиков
 # TODO: Расчёт времени между пиками (указать примерное место можно даже)
@@ -23,10 +24,12 @@ MAX_CURRENT = 2.2
 
 # Получение параметров
 parser = argparse.ArgumentParser()
+
 parser.add_argument("--drop",
                     action="store_true",
                     dest="drop_value",
                     default=False)
+
 parser.add_argument("--date",
                     action="store_true",
                     dest="add_date",
@@ -152,7 +155,10 @@ if __name__ == "__main__":
         # fig.set_figwidth(12)
         # fig.set_figheight(8)
 
+        if not os.path.exists(OUTPUT_PATH):
+            os.mkdir(OUTPUT_PATH)
+
         # Результат
-        plt.savefig('img_all_graph\\' + outFileName)
+        plt.savefig(os.path.join(OUTPUT_PATH, outFileName))
         mng = plt.get_current_fig_manager()
         mng.window.state('zoomed')
