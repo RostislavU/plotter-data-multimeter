@@ -38,7 +38,7 @@ parser.add_argument("--date",
 parser.add_argument("--current",
                     action="store_true",
                     dest="current",
-                    default=False)
+                    default=True)
 
 parser.add_argument("--table",
                     action="store_true",
@@ -73,6 +73,7 @@ if __name__ == "__main__":
     # Поиск всех подходящих файлов для получения данных из текущей папки
 
     filenames = find('.csv', PATH)
+
     if settings['make_table']:
         print('|| График || Ток на АКБ || Ток на USB || ')
 
@@ -97,6 +98,7 @@ if __name__ == "__main__":
 
         # Перевести во float
         data['value1'] = data['value1'].map(to_float)
+
         if settings['current']:
             data['value2'] = data['value2'].map(to_float)
 
@@ -117,11 +119,12 @@ if __name__ == "__main__":
                 print('| ' + fname + ' | ' + str(average)[:5] + ' A |  |')
 
         if settings['drop_value']:
-            data = data.drop(data[data.value1 < MIN_VOLTAGE].index)
             data = data.drop(data[data.value1 > MAX_VOLTAGE].index)
+            data = data.drop(data[data.value1 < MIN_VOLTAGE].index)
+
             if settings['current']:
-                data = data.drop(data[data.value2 < MAX_CURRENT].index)
-                data = data.drop(data[data.value2 > MIN_CURRENT].index)
+                data = data.drop(data[data.value2 > MAX_CURRENT].index)
+                data = data.drop(data[data.value2 < MIN_CURRENT].index)
 
         # Настройка фигуры
         if settings['current']:
