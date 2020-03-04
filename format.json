@@ -1,0 +1,42 @@
+{
+  "data": {
+    "sep": ";",
+    "columns": {
+      "1": "date",
+      "2": "time",
+      "3": "temp_value",
+      "4": "temp_task",
+      "5": "hum_value",
+      "6": "hum_task"
+    },
+    "focus_keys": {
+      "date": {
+        "value": 1,
+        "name": "Дата"
+      },
+      "time": {
+        "value": 2,
+        "name": "Время"
+      },
+      "chanel1": {
+        "task" : 4,
+        "task_label": "Уставка температуры",
+        "value": 3,
+        "value_label": "Температура"
+      },
+      "chanel2": {
+        "task": 6,
+        "task_label": "Уставка влажности",
+        "value": 5,
+        "value_label": "Влажность"
+      }
+    },
+    "borders": {
+      "min_chanel1": -100,
+      "max_chanel1": 200,
+      "min_chanel2": -100,
+      "max_chanel2": 200
+    }
+  }
+}
+

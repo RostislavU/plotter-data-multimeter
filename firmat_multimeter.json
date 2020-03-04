@@ -1,0 +1,41 @@
+{
+  "data": {
+    "sep": ";",
+    "columns": {
+      "1": "date",
+      "2": "timeStart",
+      "3": "chanel1",
+      "4": "value1",
+      "5": "@1",
+      "6": "timeMiddle",
+      "7": "chanel2",
+      "8": "value2",
+      "9": "@2",
+      "10": "timeEnd"
+    },
+    "focus_keys": {
+      "date": {
+        "value": 1,
+        "name": "Дата"
+      },
+      "time": {
+        "value": 2,
+        "name": "Время"
+      },
+      "chanel1": {
+        "value": 4,
+        "name": "Напряжение"
+      },
+      "chanel2": {
+        "value": 8,
+        "name": "Ток"
+      }
+    },
+    "borders": {
+      "min_chanel1": 3.3,
+      "max_chanel1": 4.4,
+      "min_chanel2": -0.2,
+      "max_chanel2": 2.0
+    }
+  }
+}
