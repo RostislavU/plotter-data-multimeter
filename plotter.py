@@ -9,7 +9,6 @@ from matplotlib.ticker import MultipleLocator, FormatStrFormatter, AutoMinorLoca
 
 import argparse
 
-MIN_VALUE = -0.002
 PATH = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_PATH = 'images'
 
@@ -31,9 +30,15 @@ parser.add_argument("--table",
                     dest="make_table",
                     default=False)
 
+parser.add_argument("--format",
+                    action="store",
+                    dest="format",
+                    default="format.json")
+
 settings = vars(parser.parse_args())
 
-with open('format.json') as f:
+
+with open(settings['format']) as f:
     frm = json.load(f)['data']
     columns = frm['columns']
     borders = frm['borders']
@@ -146,6 +151,13 @@ if __name__ == "__main__":
                 data = data.drop(data[data[CHANEL2['value']] > borders['max_chanel2']].index)
                 data = data.drop(data[data[CHANEL2['value']] < borders['min_chanel2']].index)
 
+        if not data.size:
+            msg = 'После всех преобразований данных не осталось.\n'
+            if settings['drop_value']:
+                msg += 'Попробуйте запустить без ключа --drop.'
+            print(msg)
+            exit(-1)
+
         # Настройка фигуры
         if CHANEL2['value']:
             fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(24, 8))
@@ -153,6 +165,7 @@ if __name__ == "__main__":
             data[CHANEL1['value']].plot(ax=axes[0], color="orange", label=CHANEL1['value_label'])
             if CHANEL1['task']:
                 data[CHANEL1['task']].plot(ax=axes[0], color='#FF7600', linestyle='--', label=CHANEL1['task_label'])
+
             axes[0].legend(loc='right', bbox_to_anchor=(1.12, 0.5), shadow=True)
             axes[0].minorticks_on()
             axes[0].set_xlabel(r'Время', fontsize=12)
