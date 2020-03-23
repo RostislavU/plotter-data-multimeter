@@ -42,6 +42,7 @@ with open(settings['format']) as f:
     frm = json.load(f)['data']
     columns = frm['columns']
     borders = frm['borders']
+    fig_size = tuple(frm['fig_size'])
 
     focus_keys = frm['focus_keys']
     focus_numbers = list(map(lambda item: item.get('value'), focus_keys.values()))
@@ -160,7 +161,7 @@ if __name__ == "__main__":
 
         # Настройка фигуры
         if CHANEL2['value']:
-            fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(24, 8))
+            fig, axes = plt.subplots(nrows=2, ncols=1, figsize=fig_size)
 
             data[CHANEL1['value']].plot(ax=axes[0], color="orange", label=CHANEL1['value_label'])
             if CHANEL1['task']:
@@ -184,11 +185,11 @@ if __name__ == "__main__":
             axes[1].grid(which='major', linewidth=1, alpha=0.6)
 
         else:
-            fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(24, 8))
+            fig, axes = plt.subplots(nrows=1, ncols=1, figsize=fig_size)
 
-            data[CHANEL1['value']].plot(ax=axes[0], color="orange", label=CHANEL1['value_label'])
+            data[CHANEL1['value']].plot(ax=axes, color="orange", label=CHANEL1['value_label'])
             if CHANEL1['task']:
-                data[CHANEL1['task']].plot(ax=axes[0], color='#FF7600', linestyle='--', label=CHANEL1['task_label'])
+                data[CHANEL1['task']].plot(ax=axes, color='#FF7600', linestyle='--', label=CHANEL1['task_label'])
             axes.minorticks_on()
             axes.set_xlabel(r'Время', fontsize=12)
             axes.set_ylabel(r'Напряжение', fontsize=12)

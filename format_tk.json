@@ -1,6 +1,7 @@
 {
   "data": {
     "sep": ";",
+    "fig_size": [12, 12],
     "columns": {
       "1": "date",
       "2": "time",
