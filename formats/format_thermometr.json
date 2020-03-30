@@ -1,0 +1,66 @@
+{
+  "data": {
+    "sep": ";",
+    "one_scale": true,
+    "fig_size": [27, 12],
+    "columns": {
+      "1": "Place",
+      "2": "Date",
+      "3": "Time",
+      "4": "Value1",
+      "5": "T1",
+      "6": "Value2",
+      "7": "T2",
+      "8": "Value3",
+      "9": "T3",
+      "10": "Value4",
+      "11": "T4"
+    },
+    "axis": {
+      "x": {
+        "label": "Время"
+      },
+      "y": {
+        "label": "Температура"
+      }
+    },
+    "focus_keys": {
+      "date": {
+        "value": 0,
+        "name": "Дата"
+      },
+      "time": {
+        "value": 3,
+        "name": "Время"
+      },
+      "chanel1": {
+        "color": "blue",
+        "task" : 0,
+        "task_label": "",
+        "value": 10,
+        "value_label": "Температура на T1"
+      },
+      "chanel2": {
+        "color": "orange",
+        "task": 0,
+        "task_label": "",
+        "value": 6,
+        "value_label": "Температура на T2"
+      },
+      "chanel3": {
+        "color": "red",
+        "task": 0,
+        "task_label": "",
+        "value": 8,
+        "value_label": "Температура на T3"
+      }
+    },
+    "borders": {
+      "min_chanel1": -100,
+      "max_chanel1": 200,
+      "min_chanel2": -100,
+      "max_chanel2": 200
+    }
+  }
+}
+

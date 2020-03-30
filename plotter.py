@@ -33,15 +33,15 @@ parser.add_argument("--table",
 parser.add_argument("--format",
                     action="store",
                     dest="format",
-                    default="format.json")
+                    default="formats/format.json")
 
 settings = vars(parser.parse_args())
-
 
 with open(settings['format']) as f:
     frm = json.load(f)['data']
     columns = frm['columns']
     borders = frm['borders']
+    axis = frm['axis']
     fig_size = tuple(frm['fig_size'])
 
     focus_keys = frm['focus_keys']
@@ -54,17 +54,27 @@ with open(settings['format']) as f:
     TIME_COLUMN = columns.get(str(focus_keys['time']['value']))
 
     CHANEL1 = {
-        'task':  columns.get(str(focus_keys['chanel1']['task']), None),
+        'color': focus_keys.get('chanel1', None).get('color', "blue"),
+        'task': columns.get(str(focus_keys['chanel1']['task']), None),
         'task_label': focus_keys.get('chanel1', None).get('task_label', None),
         'value': columns.get(str(focus_keys['chanel1']['value'])),
         'value_label': focus_keys.get('chanel1', None).get('value_label', None)
     }
 
     CHANEL2 = {
+        'color': focus_keys.get('chanel2', None).get('color', "red"),
         'task': columns.get(str(focus_keys['chanel2']['task']), None),
         'task_label': focus_keys.get('chanel2', None).get('task_label', None),
         'value': columns.get(str(focus_keys['chanel2']['value']), None),
         'value_label': focus_keys.get('chanel2', None).get('value_label', None)
+    }
+
+    CHANEL3 = {
+        'color': focus_keys.get('chanel3', None).get('color', "orange"),
+        'task': columns.get(str(focus_keys['chanel3']['task']), None),
+        'task_label': focus_keys.get('chanel3', None).get('task_label', None),
+        'value': columns.get(str(focus_keys['chanel3']['value']), None),
+        'value_label': focus_keys.get('chanel3', None).get('value_label', None)
     }
 
 
@@ -101,7 +111,8 @@ if __name__ == "__main__":
 
         # Подготовить данные
         all_columns = list(columns.values())
-        focus_columns = list(map(lambda x: x[1], list(filter(lambda item: int(item[0]) in focus_numbers, columns.items()))))
+        focus_columns = list(
+            map(lambda x: x[1], list(filter(lambda item: int(item[0]) in focus_numbers, columns.items()))))
 
         data = pd.read_csv(fname,
                            sep=SEP,
@@ -111,29 +122,28 @@ if __name__ == "__main__":
                            index_col=index_col,
                            names=all_columns)
 
-        data = data.drop(columns=list(set(all_columns)-set(focus_columns)))
+        data = data.drop(columns=list(set(all_columns) - set(focus_columns)))
 
-        # Перевести во float
-
-        for column in {CHANEL1['task'], CHANEL1['value'], CHANEL2['task'], CHANEL2['value']}:
+        for column in {CHANEL1['task'], CHANEL1['value'], CHANEL2['task'], CHANEL2['value'], CHANEL3['task'], CHANEL3['value']}:
             if column:
+                # Перевести во float
+                data[column] = data[column].map(to_float)
                 if ',' in str(data[column].values[1]):
                     data[column] = data[column].map(to_float)
+                    # В случае, если среднее значение меньше нуля, то инвертируем значение всех знаков
+                if data[column].mean() < 0:
+                    data[column] = data[column].map(lambda x: -1 * x)
         # Исключить лишние данные, меньше какого-то значения
 
-        # В случае, если среднее значение меньше нуля, то инвертируем значение всех знаков
-        if data[CHANEL1['value']].mean() < 0:
-            data[CHANEL1['value']] = data[CHANEL1['value']].map(lambda x: -1 * x)
-
-        if CHANEL2['value']:
-            average = data[CHANEL2['value']].mean()
-
-            if data[CHANEL2['value']].mean() < 0:
-                data[CHANEL2['value']] = data[CHANEL2['value']].map(lambda x: -1 * x)
-                average *= -1
-
-            if settings['make_table']:
-                print('| ' + fname + ' | ' + str(average)[:5] + ' A | |  |')
+        # if CHANEL2['value']:
+        #     average = data[CHANEL2['value']].mean()
+        #
+        #     if data[CHANEL2['value']].mean() < 0:
+        #         data[CHANEL2['value']] = data[CHANEL2['value']].map(lambda x: -1 * x)
+        #         average *= -1
+        #
+        #     if settings['make_table']:
+        #         print('| ' + fname + ' | ' + str(average)[:5] + ' A | |  |')
 
         if settings['drop_value']:
 
@@ -160,7 +170,7 @@ if __name__ == "__main__":
             exit(-1)
 
         # Настройка фигуры
-        if CHANEL2['value']:
+        if not frm['one_scale']:
             fig, axes = plt.subplots(nrows=2, ncols=1, figsize=fig_size)
 
             data[CHANEL1['value']].plot(ax=axes[0], color="orange", label=CHANEL1['value_label'])
@@ -187,15 +197,17 @@ if __name__ == "__main__":
         else:
             fig, axes = plt.subplots(nrows=1, ncols=1, figsize=fig_size)
 
-            data[CHANEL1['value']].plot(ax=axes, color="orange", label=CHANEL1['value_label'])
-            if CHANEL1['task']:
-                data[CHANEL1['task']].plot(ax=axes, color='#FF7600', linestyle='--', label=CHANEL1['task_label'])
+            for CHANEL in (CHANEL1, CHANEL2, CHANEL3):
+                data[CHANEL['value']].plot(ax=axes, color=CHANEL['color'], label=CHANEL['value_label'])
+
             axes.minorticks_on()
-            axes.set_xlabel(r'Время', fontsize=12)
-            axes.set_ylabel(r'Напряжение', fontsize=12)
+            axes.set_xlabel(axis['x']['label'], fontsize=12)
+            axes.set_ylabel(axis['y']['label'], fontsize=12)
             axes.grid(which='minor', linewidth=0.4, alpha=0.3)
+            # axes.set_yticks([4.31, 4.41, 4.51, 4.6, 4.8, 5.0, 5.15])
+
             axes.grid(which='major', linewidth=1, alpha=0.6)
-            axes.legend(loc='upper center', bbox_to_anchor=(1.12, 0.5), shadow=True)
+            axes.legend(loc='upper center', bbox_to_anchor=(0.9, 0.2), shadow=True)
 
         outFileName = fname[:-4] + '.png'
         # fig.set_figwidth(12)

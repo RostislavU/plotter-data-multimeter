@@ -1,7 +1,8 @@
 {
   "data": {
     "sep": ";",
-    "fig_size": [12, 12],
+    "one_scale": true,
+    "fig_size": [10, 10],
     "columns": {
       "1": "date",
       "2": "timeStart",
@@ -14,6 +15,14 @@
       "9": "@2",
       "10": "timeEnd"
     },
+    "axis": {
+      "x": {
+        "label": "Время"
+      },
+      "y": {
+        "label": "Температура"
+      }
+    },
     "focus_keys": {
       "date": {
         "value": 0,
@@ -24,12 +33,14 @@
         "value_label": "Ток"
       },
       "chanel1": {
+        "color" : "blue",
         "task": "",
         "task_label": "",
         "value": 4,
         "value_label": "Напряжение"
       },
       "chanel2": {
+        "color" : "red",
         "task": "",
         "task_label": "",
         "value": 0,
