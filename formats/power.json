@@ -14,14 +14,14 @@
       "8": "value2",
       "9": "@2",
       "10": "timeEnd",
-       "11": "power"
+      "11": "power"
     },
     "axis": {
       "x": {
         "label": "Ток, А"
       },
       "y": {
-        "label": "Напряжение, В"
+        "label": "Мощность, Вт"
       }
     },
     "focus_keys": {
@@ -37,15 +37,15 @@
         "color" : "blue",
         "task": "",
         "task_label": "",
-        "value": 4,
-        "value_label": "Напряжение, В"
+        "value": 11,
+        "value_label": "Мощность"
       },
       "chanel2": {
         "color" : "red",
         "task": "",
         "task_label": "",
         "value": 0,
-        "value_label": "Напряжение  (перем.; вход БП), В"
+        "value_label": "Напряжение  (перем.; вход БП)"
       }
     },
     "borders": {

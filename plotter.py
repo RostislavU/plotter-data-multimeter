@@ -69,13 +69,13 @@ with open(settings['format']) as f:
         'value_label': focus_keys.get('chanel2', None).get('value_label', None)
     }
 
-    CHANEL3 = {
-        'color': focus_keys.get('chanel3', None).get('color', "orange"),
-        'task': columns.get(str(focus_keys['chanel3']['task']), None),
-        'task_label': focus_keys.get('chanel3', None).get('task_label', None),
-        'value': columns.get(str(focus_keys['chanel3']['value']), None),
-        'value_label': focus_keys.get('chanel3', None).get('value_label', None)
-    }
+    # CHANEL3 = {
+    #     'color': focus_keys.get('chanel3', None).get('color', "orange"),
+    #     'task': columns.get(str(focus_keys['chanel3']['task']), None),
+    #     'task_label': focus_keys.get('chanel3', None).get('task_label', None),
+    #     'value': columns.get(str(focus_keys['chanel3']['value']), None),
+    #     'value_label': focus_keys.get('chanel3', None).get('value_label', None)
+    # }
 
 
 def find(pattern, path):
@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
         data = data.drop(columns=list(set(all_columns) - set(focus_columns)))
 
-        for column in {CHANEL1['task'], CHANEL1['value'], CHANEL2['task'], CHANEL2['value'], CHANEL3['task'], CHANEL3['value']}:
+        for column in {CHANEL1['task'], CHANEL1['value'], CHANEL2['task'], CHANEL2['value']}:
             if column:
                 # Перевести во float
                 data[column] = data[column].map(to_float)
@@ -177,27 +177,27 @@ if __name__ == "__main__":
             if CHANEL1['task']:
                 data[CHANEL1['task']].plot(ax=axes[0], color='#FF7600', linestyle='--', label=CHANEL1['task_label'])
 
-            axes[0].legend(loc='right', bbox_to_anchor=(1.12, 0.5), shadow=True)
+            # axes[0].legend(loc='right', bbox_to_anchor=(1.12, 0.5), shadow=True)
             axes[0].minorticks_on()
-            axes[0].set_xlabel(r'Время', fontsize=12)
-            axes[0].set_ylabel(r'Температура', fontsize=12)
+            axes[0].set_xlabel(axis['x']['label'], fontsize=12)
+            axes[0].set_ylabel(CHANEL1['value_label'], fontsize=12)
             axes[0].grid(which='minor', linewidth=0.4, alpha=0.3)
             axes[0].grid(which='major', linewidth=1, alpha=0.6)
 
             data[CHANEL2['value']].plot(ax=axes[1], color="blue", label=CHANEL2['value_label'])
             if CHANEL2['task']:
                 data[CHANEL2['task']].plot(ax=axes[1], color='#009999', linestyle='--', label=CHANEL2['task_label'])
-            axes[1].legend(loc='right', bbox_to_anchor=(1.12, 0.5), shadow=True)
+            # axes[1].legend(loc='right', bbox_to_anchor=(1.12, 0.5), shadow=True)
             axes[1].minorticks_on()
-            axes[1].set_xlabel(r'Время', fontsize=12)
-            axes[1].set_ylabel(r'Влажность', fontsize=12)
+            axes[1].set_xlabel(axis['x']['label'], fontsize=12)
+            axes[1].set_ylabel(CHANEL2['value_label'], fontsize=12)
             axes[1].grid(which='minor', linewidth=0.4, alpha=0.3)
             axes[1].grid(which='major', linewidth=1, alpha=0.6)
 
         else:
             fig, axes = plt.subplots(nrows=1, ncols=1, figsize=fig_size)
 
-            for CHANEL in (CHANEL1, CHANEL2, CHANEL3):
+            for CHANEL in (CHANEL1, CHANEL2):
                 data[CHANEL['value']].plot(ax=axes, color=CHANEL['color'], label=CHANEL['value_label'])
 
             axes.minorticks_on()
@@ -207,7 +207,7 @@ if __name__ == "__main__":
             # axes.set_yticks([4.31, 4.41, 4.51, 4.6, 4.8, 5.0, 5.15])
 
             axes.grid(which='major', linewidth=1, alpha=0.6)
-            axes.legend(loc='upper center', bbox_to_anchor=(0.9, 0.2), shadow=True)
+            # axes.legend(loc='upper center', bbox_to_anchor=(0.9, 0.2), shadow=True)
 
         outFileName = fname[:-4] + '.png'
         # fig.set_figwidth(12)
