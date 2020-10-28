@@ -18,41 +18,41 @@
     },
     "axis": {
       "x": {
-        "label": "Время"
+        "label": "пїЅпїЅпїЅпїЅпїЅ"
       },
       "y": {
-        "label": "Температура, \u2103"
+        "label": "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, \u2103"
       }
     },
     "focus_keys": {
       "date": {
         "value": 0,
-        "name": "Дата"
+        "name": "Р”Р°С‚Р°"
       },
       "time": {
         "value": 3,
-        "name": "Время"
+        "name": "Р’СЂРµРјСЏ"
       },
       "chanel1": {
         "color": "blue",
         "task" : 0,
         "task_label": "",
         "value": 10,
-        "value_label": "Температура на T1"
+        "value_label": "РўРµСЂРјРѕСЂР°СЂР° T1"
       },
       "chanel2": {
         "color": "orange",
         "task": 0,
         "task_label": "",
         "value": 6,
-        "value_label": "Температура на T2"
+        "value_label": "РўРµСЂРјРѕРїР°СЂР° T2"
       },
       "chanel3": {
         "color": "red",
         "task": 0,
         "task_label": "",
         "value": 8,
-        "value_label": "Температура на T3"
+        "value_label": "РўРµСЂРјРѕРїР°СЂР° T3"
       }
     },
     "borders": {

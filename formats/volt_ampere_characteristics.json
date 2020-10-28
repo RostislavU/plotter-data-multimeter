@@ -18,34 +18,34 @@
     },
     "axis": {
       "x": {
-        "label": "Ток, А"
+        "label": "РўРѕРє, Рђ"
       },
       "y": {
-        "label": "Напряжение, В"
+        "label": "РќР°РїСЂСЏР¶РµРЅРёРµ, Р’"
       }
     },
     "focus_keys": {
       "date": {
         "value": 0,
-        "name": "Дата"
+        "name": "Р”Р°С‚Р°"
       },
       "time": {
         "value": 8,
-        "value_label": "Ток, А"
+        "value_label": "РўРѕРє, Рђ"
       },
       "chanel1": {
         "color" : "blue",
         "task": "",
         "task_label": "",
         "value": 4,
-        "value_label": "Напряжение, В"
+        "value_label": "РќР°РїСЂСЏР¶РµРЅРёРµ, Р’"
       },
       "chanel2": {
         "color" : "red",
         "task": "",
         "task_label": "",
         "value": 0,
-        "value_label": "Напряжение  (перем.; вход БП), В"
+        "value_label": ""
       }
     },
     "borders": {

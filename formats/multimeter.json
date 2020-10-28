@@ -17,34 +17,34 @@
     },
     "axis": {
       "x": {
-        "label": "Время"
+        "label": "Р’СЂРµРјСЏ"
       },
       "y": {
-        "label": "Напряжение"
+        "label": "РќР°РїСЂСЏР¶РµРЅРёРµ"
       }
     },
     "focus_keys": {
       "date": {
         "value": 0,
-        "name": "Дата"
+        "name": "Р”Р°С‚Р°"
       },
       "time": {
         "task": "",
         "task_label": "",
         "value": 2,
-        "value_label": "Время"
+        "value_label": "Р’СЂРµРјСЏ"
       },
       "chanel1": {
         "task": "",
         "task_label": "",
         "value": 4,
-        "value_label": "Напряжение"
+        "value_label": "РќР°РїСЂСЏР¶РµРЅРёРµ"
       },
       "chanel2": {
         "task": "",
         "task_label": "",
         "value": 8,
-        "value_label": "Ток"
+        "value_label": "РўРѕРє"
       }
     },
     "borders": {
